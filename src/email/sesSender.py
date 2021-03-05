@@ -35,12 +35,12 @@ def send_email_with_ses(email_context):
     msg_body = MIMEMultipart('alternative')
 
     text_part = MIMEText(email_context['bodyText'].encode("utf-8"), 'plain', "utf-8")
-    html_part = MIMEText(download_from_s3(email_context['bodyHtml']).decode(), 'html', "utf-8")
+    html_part = MIMEText(download_from_s3(email_context['htmlKey']).decode(), 'html', "utf-8")
 
     msg_body.attach(text_part)
     msg_body.attach(html_part)
 
-    object_key = email_context['attachment']
+    object_key = email_context['attachmentKey']
     att = MIMEApplication(download_from_s3(object_key))
 
     att.add_header('Content-Disposition', 'attachment', filename=object_key)

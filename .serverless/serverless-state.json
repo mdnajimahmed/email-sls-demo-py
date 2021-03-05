@@ -143,7 +143,15 @@
           "MainDashhandlerDashpyLogGroup": {
             "Type": "AWS::Logs::LogGroup",
             "Properties": {
-              "LogGroupName": "/aws/lambda/email-main-handler-py"
+              "LogGroupName": "/aws/lambda/email-main-handler-py",
+              "RetentionInDays": 30
+            }
+          },
+          "FallbackDashhandlerDashpyLogGroup": {
+            "Type": "AWS::Logs::LogGroup",
+            "Properties": {
+              "LogGroupName": "/aws/lambda/email-staging-fallback-handler-py",
+              "RetentionInDays": 30
             }
           },
           "IamRoleLambdaExecution": {
@@ -189,6 +197,9 @@
                         "Resource": [
                           {
                             "Fn::Sub": "arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/email-main-handler-py:*"
+                          },
+                          {
+                            "Fn::Sub": "arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/email-staging*:*"
                           }
                         ]
                       },
@@ -200,6 +211,9 @@
                         "Resource": [
                           {
                             "Fn::Sub": "arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/email-main-handler-py:*:*"
+                          },
+                          {
+                            "Fn::Sub": "arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/email-staging*:*:*"
                           }
                         ]
                       },
@@ -226,6 +240,22 @@
                           {
                             "Fn::GetAtt": [
                               "EmailQueueDemo",
+                              "Arn"
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "Effect": "Allow",
+                        "Action": [
+                          "sqs:ReceiveMessage",
+                          "sqs:DeleteMessage",
+                          "sqs:GetQueueAttributes"
+                        ],
+                        "Resource": [
+                          {
+                            "Fn::GetAtt": [
+                              "EmailQueueDemoDLQ",
                               "Arn"
                             ]
                           }
@@ -258,13 +288,13 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/email/staging/1614932882362-2021-03-05T08:28:02.362Z/email.zip"
+                "S3Key": "serverless/email/staging/1614939316224-2021-03-05T10:15:16.224Z/email.zip"
               },
               "Handler": "src/email/handler.email_handler",
               "Runtime": "python3.8",
               "FunctionName": "email-main-handler-py",
               "MemorySize": 1024,
-              "Timeout": 30,
+              "Timeout": 10,
               "Role": {
                 "Fn::GetAtt": [
                   "IamRoleLambdaExecution",
@@ -276,14 +306,49 @@
               "MainDashhandlerDashpyLogGroup"
             ]
           },
-          "MainDashhandlerDashpyLambdaVersionLIajE80h4f1cnXdL2SED03jhGRrlkEQuEs67YpiAY7s": {
+          "MainDashhandlerDashpyLambdaVersionqKyCzaG7L8fRvOiGyMqDYXDFk0S6l5YsevRG0YjzW4": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "MainDashhandlerDashpyLambdaFunction"
               },
-              "CodeSha256": "7yNb8EXCDScqU57tDeG9SgrAbP2yZBgCt5aOVjyyjLs="
+              "CodeSha256": "NntxD7nf5U52ntb6rwDZs6DwNlC2F8bn8r3xkBqeOm4="
+            }
+          },
+          "FallbackDashhandlerDashpyLambdaFunction": {
+            "Type": "AWS::Lambda::Function",
+            "Properties": {
+              "Code": {
+                "S3Bucket": {
+                  "Ref": "ServerlessDeploymentBucket"
+                },
+                "S3Key": "serverless/email/staging/1614939316224-2021-03-05T10:15:16.224Z/email.zip"
+              },
+              "Handler": "src/email/handler.email_handler_fallback",
+              "Runtime": "python3.8",
+              "FunctionName": "email-staging-fallback-handler-py",
+              "MemorySize": 1024,
+              "Timeout": 10,
+              "Role": {
+                "Fn::GetAtt": [
+                  "IamRoleLambdaExecution",
+                  "Arn"
+                ]
+              }
+            },
+            "DependsOn": [
+              "FallbackDashhandlerDashpyLogGroup"
+            ]
+          },
+          "FallbackDashhandlerDashpyLambdaVersionq25vBGDgDXGYv4Ul1zxivuQCj93PoxOHyy0YZB6TI": {
+            "Type": "AWS::Lambda::Version",
+            "DeletionPolicy": "Retain",
+            "Properties": {
+              "FunctionName": {
+                "Ref": "FallbackDashhandlerDashpyLambdaFunction"
+              },
+              "CodeSha256": "NntxD7nf5U52ntb6rwDZs6DwNlC2F8bn8r3xkBqeOm4="
             }
           },
           "MainDashhandlerDashpyEventSourceMappingSQSEmailQueueDemo": {
@@ -308,12 +373,34 @@
               "Enabled": true
             }
           },
+          "FallbackDashhandlerDashpyEventSourceMappingSQSEmailQueueDemoDLQ": {
+            "Type": "AWS::Lambda::EventSourceMapping",
+            "DependsOn": [
+              "IamRoleLambdaExecution"
+            ],
+            "Properties": {
+              "BatchSize": 1,
+              "EventSourceArn": {
+                "Fn::GetAtt": [
+                  "EmailQueueDemoDLQ",
+                  "Arn"
+                ]
+              },
+              "FunctionName": {
+                "Fn::GetAtt": [
+                  "FallbackDashhandlerDashpyLambdaFunction",
+                  "Arn"
+                ]
+              },
+              "Enabled": true
+            }
+          },
           "EmailQueueDemo": {
             "Type": "AWS::SQS::Queue",
             "Properties": {
               "QueueName": "EmailQueueDemo",
               "MessageRetentionPeriod": 1209600,
-              "VisibilityTimeout": 35,
+              "VisibilityTimeout": 60,
               "RedrivePolicy": {
                 "deadLetterTargetArn": {
                   "Fn::GetAtt": [
@@ -321,7 +408,7 @@
                     "Arn"
                   ]
                 },
-                "maxReceiveCount": 1
+                "maxReceiveCount": 2
               }
             }
           },
@@ -330,7 +417,7 @@
             "Properties": {
               "QueueName": "EmailQueueDemoDLQ",
               "MessageRetentionPeriod": 1209600,
-              "VisibilityTimeout": 16
+              "VisibilityTimeout": 90
             }
           },
           "EmailAttachmentMediator": {
@@ -358,7 +445,13 @@
           "MainDashhandlerDashpyLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "MainDashhandlerDashpyLambdaVersionLIajE80h4f1cnXdL2SED03jhGRrlkEQuEs67YpiAY7s"
+              "Ref": "MainDashhandlerDashpyLambdaVersionqKyCzaG7L8fRvOiGyMqDYXDFk0S6l5YsevRG0YjzW4"
+            }
+          },
+          "FallbackDashhandlerDashpyLambdaFunctionQualifiedArn": {
+            "Description": "Current Lambda function version",
+            "Value": {
+              "Ref": "FallbackDashhandlerDashpyLambdaVersionq25vBGDgDXGYv4Ul1zxivuQCj93PoxOHyy0YZB6TI"
             }
           }
         }
@@ -453,7 +546,8 @@
       },
       "pythonRequirements": {
         "dockerizePip": true
-      }
+      },
+      "logRetentionInDays": 30
     },
     "plugins": [
       "serverless-python-requirements",
@@ -465,7 +559,7 @@
       "main-handler-py": {
         "handler": "src/email/handler.email_handler",
         "name": "email-main-handler-py",
-        "timeout": 30,
+        "timeout": 10,
         "events": [
           {
             "sqs": {
@@ -480,7 +574,27 @@
         "memory": 1024,
         "runtime": "python3.8",
         "vpc": {},
-        "versionLogicalId": "MainDashhandlerDashpyLambdaVersionLIajE80h4f1cnXdL2SED03jhGRrlkEQuEs67YpiAY7s"
+        "versionLogicalId": "MainDashhandlerDashpyLambdaVersionqKyCzaG7L8fRvOiGyMqDYXDFk0S6l5YsevRG0YjzW4"
+      },
+      "fallback-handler-py": {
+        "handler": "src/email/handler.email_handler_fallback",
+        "timeout": 10,
+        "events": [
+          {
+            "sqs": {
+              "arn": {
+                "$ref": "$[\"service\"][\"provider\"][\"compiledCloudFormationTemplate\"][\"Resources\"][\"IamRoleLambdaExecution\"][\"Properties\"][\"Policies\"][0][\"PolicyDocument\"][\"Statement\"][7][\"Resource\"][0]"
+              },
+              "batchSize": 1
+            }
+          }
+        ],
+        "name": "email-staging-fallback-handler-py",
+        "package": {},
+        "memory": 1024,
+        "runtime": "python3.8",
+        "vpc": {},
+        "versionLogicalId": "FallbackDashhandlerDashpyLambdaVersionq25vBGDgDXGYv4Ul1zxivuQCj93PoxOHyy0YZB6TI"
       }
     },
     "resources": {
@@ -490,7 +604,7 @@
           "Properties": {
             "QueueName": "EmailQueueDemo",
             "MessageRetentionPeriod": 1209600,
-            "VisibilityTimeout": 35,
+            "VisibilityTimeout": 60,
             "RedrivePolicy": {
               "deadLetterTargetArn": {
                 "Fn::GetAtt": [
@@ -498,7 +612,7 @@
                   "Arn"
                 ]
               },
-              "maxReceiveCount": 1
+              "maxReceiveCount": 2
             }
           }
         },
@@ -507,7 +621,7 @@
           "Properties": {
             "QueueName": "EmailQueueDemoDLQ",
             "MessageRetentionPeriod": 1209600,
-            "VisibilityTimeout": 16
+            "VisibilityTimeout": 90
           }
         },
         "EmailAttachmentMediator": {
@@ -523,6 +637,18 @@
                 }
               ]
             }
+          }
+        },
+        "MainDashhandlerDashpyLogGroup": {
+          "Type": "AWS::Logs::LogGroup",
+          "Properties": {
+            "RetentionInDays": 30
+          }
+        },
+        "FallbackDashhandlerDashpyLogGroup": {
+          "Type": "AWS::Logs::LogGroup",
+          "Properties": {
+            "RetentionInDays": 30
           }
         }
       },
@@ -556,7 +682,7 @@
     "artifact": "C:\\personal\\email-sls-demo-py\\.serverless\\email.zip"
   },
   "package": {
-    "artifactDirectoryName": "serverless/email/staging/1614932882362-2021-03-05T08:28:02.362Z",
+    "artifactDirectoryName": "serverless/email/staging/1614939316224-2021-03-05T10:15:16.224Z",
     "artifact": "email.zip"
   }
 }
