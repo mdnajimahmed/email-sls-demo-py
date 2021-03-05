@@ -21,6 +21,7 @@ def downloadFromS3(objectKey):
 
 
 def email_handler(event, context):
+    print(event)
     # Replace sender@example.com with your "From" address.
     # This address must be verified with Amazon SES.
     SENDER = "Sender Name <no-reply@timelyship.com>"
