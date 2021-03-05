@@ -39,13 +39,12 @@ def send_email_with_ses(email_context):
 
     msg_body.attach(text_part)
     msg_body.attach(html_part)
-
-    object_key = email_context['attachmentKey']
-    att = MIMEApplication(download_from_s3(object_key))
-
-    att.add_header('Content-Disposition', 'attachment', filename=object_key)
     msg.attach(msg_body)
-    msg.attach(att)
+    if email_context['hasAttachment']:
+        object_key = email_context['attachmentKey']
+        att = MIMEApplication(download_from_s3(object_key))
+        att.add_header('Content-Disposition', 'attachment', filename=email_context['attachmentName'])
+        msg.attach(att)
     try:
         response = client.send_raw_email(
             Source=sender,
