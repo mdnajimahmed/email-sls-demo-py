@@ -1,0 +1,17 @@
+{
+  "name": "email-sls-demo-py",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {},
+  "devDependencies": {
+    "serverless-offline": "^6.8.0",
+    "serverless-plugin-log-retention": "^2.0.0",
+    "serverless-python-requirements": "^5.1.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}

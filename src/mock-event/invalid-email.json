@@ -1,0 +1,14 @@
+{
+    "Records": [
+      {
+        "messageId": "b269c71f-09ca-4851-b4d2-15e99e7ed4f1",
+        "receiptHandle": "AQEBlOzKG6KJNVjJJRX4BTVUK952raFFbTT6oaEGl2i+za78nywxvn1bhSwTyZCjp9FisC90UTMD8zN52cvXBpojykLX7gGc1VnpEZhuBSX6+0vUGLC8YZ9Ug5PZj6QcQasQpAEI30f4T6gr2KlVHshBQ/Eoo5Lf5rDSQ5KAccMvmgmnFQGhnhZWwzzILJm5/vvAgZZD/SnxBOM2mBfjLeuivOpKZoyDiIlKa/+lTyo6T472G77PVz9ZA7k/fSF0v1Dg70RmkNv9tvSCqy6PUiSITSxGd4Ou/5RBD/2CNqeARhXTnT8MC6yWod4N3Q7vw62pW5rYA5vR+du9o51ie/XJ+tXVPkmcKRCgSpuy6Iw0k4dmYIfrU6PofapTJNWnmKVPBfxMLFq+P/MntxoglbUO6g==",
+        "body": "{\"context\":\"VERIFY_EMAIL\",\"destination\":{\"toAddresses\":[\"najim.ju@gmail.com\"],\"ccAddresses\":[\"mahmudazaman0509@gmail.com\"],\"bccAddresses\":[]},\"emailBodyContent\":{\"fullName\":\"Md Najim Ahmed\",\"verificationId\":\"test-guid-a1b2etc\"},\"replyToAddresses\":[],\"returnPath\":\"ahmedmdnajim@gmail.com\"}",
+        "messageAttributes": {},
+        "md5OfBody": "8cfa4c54775d412a2563ff069d292168",
+        "eventSource": "aws:sqs",
+        "eventSourceARN": "arn:aws:sqs:ap-southeast-1:135129372575:MY_FIRST_STD_QUEUE",
+        "awsRegion": "ap-southeast-1"
+      }
+    ]
+  }
