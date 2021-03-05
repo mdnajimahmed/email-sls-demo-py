@@ -3,7 +3,7 @@
       {
         "messageId": "eb15b284-8b58-43dc-9715-27d853901b87",
         "receiptHandle": "AQEB/2iYowpGp2t3Fepdt5Z3TrAXaoiZfW7WEbFVtcU5kN0Nl7pqtqSYaoYxz1Eg46eFX5fQYGt6kmQK32SP61IJ8bY97WluURRab3ZjvpA2beXzOjtiHXxlMyaPrh6jz8oYFQs8r4xOhC/cCVdpw0MOrMqQpGwPK3W6M4+pcaESGpOv2/P/kOd79h0+K8IGetqBe5kOOtyv/GuHP+cSdgLT1aqr5jHUJe//9Ev+UjEJaVCmHCyKojXBZUir7Wnz3BMVAkWlsECfmocQ6pL3TNdQxF5lpTwMQNzj2ZK0gzE4+jQAhMF9TfQXYBslxV8Cl1rXPLwBz2UtgmkvtKwLqsq+ZiN5ECYSCa7nXoasCdLuZVnBuefdCFqulz2UUyo+isSXPeMp/yAVQGtwmOfCY24LsQ==",
-        "body": "{\"context\":\"demo\",\"destination\":{\"bccAddresses\":null,\"ccAddresses\":[\"ahmedmdnajim@gmail.com\"],\"toAddresses\":[\"najim.ju@gmail.com\"]},\"templateVariables\":{\"salutation\":\"Hi Najim\"},\"attachments\":[\"ead81b00-c5f8-482e-ba9f-846f67c207fd\"],\"replyToAddresses\":null,\"returnPath\":null}",
+        "body": "{\"recipients\":[\"najim.ju@gmail.com\",\"ahmedmdnajim@gmail.com\"],\"subject\":\"Hello Demo\",\"bodyText\":\"Please find the content bellow\",\"bodyHtml\":\"body.html\",\"attachment\":\"Sample-Spreadsheet-50000-rows.xls\"}",
         "attributes": {
           "ApproximateReceiveCount": "1",
           "SentTimestamp": "1614827002489",

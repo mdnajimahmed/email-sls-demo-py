@@ -231,7 +231,7 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/email/staging/1614924280374-2021-03-05T06:04:40.374Z/email.zip"
+          "S3Key": "serverless/email/staging/1614931016273-2021-03-05T07:56:56.273Z/email.zip"
         },
         "Handler": "src/email/handler.email_handler",
         "Runtime": "python3.8",
@@ -249,14 +249,14 @@
         "MainDashhandlerDashpyLogGroup"
       ]
     },
-    "MainDashhandlerDashpyLambdaVersionFMARY3SrqYcbp6GOylTJM58Zu4IGoltIGoFa76UCek": {
+    "MainDashhandlerDashpyLambdaVersion10DupvULEyP5c5ssDIbFLHMLfWzeCVIJ3rN71WcYLE": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
       "Properties": {
         "FunctionName": {
           "Ref": "MainDashhandlerDashpyLambdaFunction"
         },
-        "CodeSha256": "ZwKPYQicbhrR++yMoaGEK4w4mwpH6WsSnmxsh/7pIKs="
+        "CodeSha256": "PHq3U50BCDP0Txh7gq6/YZIm8gW6usKzHL1c5G7OJew="
       }
     },
     "MainDashhandlerDashpyEventSourceMappingSQSEmailQueueDemo": {
@@ -331,7 +331,7 @@
     "MainDashhandlerDashpyLambdaFunctionQualifiedArn": {
       "Description": "Current Lambda function version",
       "Value": {
-        "Ref": "MainDashhandlerDashpyLambdaVersionFMARY3SrqYcbp6GOylTJM58Zu4IGoltIGoFa76UCek"
+        "Ref": "MainDashhandlerDashpyLambdaVersion10DupvULEyP5c5ssDIbFLHMLfWzeCVIJ3rN71WcYLE"
       }
     }
   }
