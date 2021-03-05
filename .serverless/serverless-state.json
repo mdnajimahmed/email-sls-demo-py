@@ -258,7 +258,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/email/staging/1614931016273-2021-03-05T07:56:56.273Z/email.zip"
+                "S3Key": "serverless/email/staging/1614932882362-2021-03-05T08:28:02.362Z/email.zip"
               },
               "Handler": "src/email/handler.email_handler",
               "Runtime": "python3.8",
@@ -276,14 +276,14 @@
               "MainDashhandlerDashpyLogGroup"
             ]
           },
-          "MainDashhandlerDashpyLambdaVersion10DupvULEyP5c5ssDIbFLHMLfWzeCVIJ3rN71WcYLE": {
+          "MainDashhandlerDashpyLambdaVersionLIajE80h4f1cnXdL2SED03jhGRrlkEQuEs67YpiAY7s": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "MainDashhandlerDashpyLambdaFunction"
               },
-              "CodeSha256": "PHq3U50BCDP0Txh7gq6/YZIm8gW6usKzHL1c5G7OJew="
+              "CodeSha256": "7yNb8EXCDScqU57tDeG9SgrAbP2yZBgCt5aOVjyyjLs="
             }
           },
           "MainDashhandlerDashpyEventSourceMappingSQSEmailQueueDemo": {
@@ -358,7 +358,7 @@
           "MainDashhandlerDashpyLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "MainDashhandlerDashpyLambdaVersion10DupvULEyP5c5ssDIbFLHMLfWzeCVIJ3rN71WcYLE"
+              "Ref": "MainDashhandlerDashpyLambdaVersionLIajE80h4f1cnXdL2SED03jhGRrlkEQuEs67YpiAY7s"
             }
           }
         }
@@ -480,7 +480,7 @@
         "memory": 1024,
         "runtime": "python3.8",
         "vpc": {},
-        "versionLogicalId": "MainDashhandlerDashpyLambdaVersion10DupvULEyP5c5ssDIbFLHMLfWzeCVIJ3rN71WcYLE"
+        "versionLogicalId": "MainDashhandlerDashpyLambdaVersionLIajE80h4f1cnXdL2SED03jhGRrlkEQuEs67YpiAY7s"
       }
     },
     "resources": {
@@ -556,7 +556,7 @@
     "artifact": "C:\\personal\\email-sls-demo-py\\.serverless\\email.zip"
   },
   "package": {
-    "artifactDirectoryName": "serverless/email/staging/1614931016273-2021-03-05T07:56:56.273Z",
+    "artifactDirectoryName": "serverless/email/staging/1614932882362-2021-03-05T08:28:02.362Z",
     "artifact": "email.zip"
   }
 }

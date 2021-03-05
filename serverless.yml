@@ -48,18 +48,29 @@ custom:
   config: ${file(config/env/${env:ENV}.yml)}
   pythonRequirements:
     dockerizePip: true
+  logRetentionInDays: 30
 
 
 functions:
   main-handler-py:
     handler: src/email/handler.email_handler
     name: ${self:service}-main-handler-py
-    timeout: 30
+    timeout: 10
     events:
       - sqs:
           arn:
             Fn::GetAtt:
               - EmailQueueDemo
+              - Arn
+          batchSize: 1
+  fallback-handler-py:
+    handler: src/email/handler.email_handler_fallback
+    timeout: 10
+    events:
+      - sqs:
+          arn:
+            Fn::GetAtt:
+              - EmailQueueDemoDLQ
               - Arn
           batchSize: 1
 
@@ -70,20 +81,19 @@ resources:
       Properties:
         QueueName: "EmailQueueDemo"
         MessageRetentionPeriod: 1209600 # 14 days in seconds
-        # VisibilityTimeout: 300
-        VisibilityTimeout: 35
+        VisibilityTimeout: 60
         RedrivePolicy:
           deadLetterTargetArn:
             "Fn::GetAtt":
               - EmailQueueDemoDLQ
               - Arn
-          maxReceiveCount: 1
+          maxReceiveCount: 2
     EmailQueueDemoDLQ:
       Type: "AWS::SQS::Queue"
       Properties:
         QueueName: "EmailQueueDemoDLQ"
         MessageRetentionPeriod: 1209600 # 14 days in seconds
-        VisibilityTimeout: 16
+        VisibilityTimeout: 90
     EmailAttachmentMediator:
       Type: "AWS::S3::Bucket"
       Properties:
