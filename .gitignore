@@ -235,3 +235,5 @@ dist
 .tern-port
 
 .idea/
+
+.serverless/
