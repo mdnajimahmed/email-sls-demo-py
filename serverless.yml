@@ -44,6 +44,11 @@ provider:
             - Ref: EmailAttachmentMediator
             - "/*"
 
+    - Effect: "Allow"
+      Action:
+        - sns:Publish
+      Resource: "arn:aws:sns:ap-southeast-1:135129372575:MAIN_LAMBDA_FAILED_EMAIL_DEMO"
+
 custom:
   config: ${file(config/env/${env:ENV}.yml)}
   pythonRequirements:
@@ -65,7 +70,11 @@ functions:
           batchSize: 1
   fallback-handler-py:
     handler: src/email/handler.email_handler_fallback
+    name: ${self:service}-fallback-handler-py
     timeout: 10
+    environment:
+      SRE_ALERT_TOPIC_ARN: "arn:aws:sns:ap-southeast-1:135129372575:MAIN_LAMBDA_FAILED_EMAIL_DEMO"
+
     events:
       - sqs:
           arn:
@@ -81,7 +90,7 @@ resources:
       Properties:
         QueueName: "EmailQueueDemo"
         MessageRetentionPeriod: 1209600 # 14 days in seconds
-        VisibilityTimeout: 60
+        VisibilityTimeout: 30
         RedrivePolicy:
           deadLetterTargetArn:
             "Fn::GetAtt":
