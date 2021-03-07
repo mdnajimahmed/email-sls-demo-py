@@ -268,7 +268,7 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/email/staging/1615092809520-2021-03-07T04:53:29.520Z/email.zip"
+          "S3Key": "serverless/email/staging/1615093972996-2021-03-07T05:12:52.996Z/email.zip"
         },
         "Handler": "src/email/handler.email_handler",
         "Runtime": "python3.8",
@@ -286,14 +286,14 @@
         "MainDashhandlerDashpyLogGroup"
       ]
     },
-    "MainDashhandlerDashpyLambdaVersion5fWVYfhoxWtAKhD6ncV2VozFLe5ptiJAsaLdksjnBc": {
+    "MainDashhandlerDashpyLambdaVersionKIRj4PkilILtqVUu2nLB3n1CHKHi17WpfAhTwWcOLQ": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
       "Properties": {
         "FunctionName": {
           "Ref": "MainDashhandlerDashpyLambdaFunction"
         },
-        "CodeSha256": "R2P1mvuIlKMrfblIX2696vNSAfbefvZs0Xom3KeKspI="
+        "CodeSha256": "tvPG1iDbJzO/dxIxTT3Mhk5m5uq1g31mLsAkwZ6Wg/E="
       }
     },
     "FallbackDashhandlerDashpyLambdaFunction": {
@@ -303,7 +303,7 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/email/staging/1615092809520-2021-03-07T04:53:29.520Z/email.zip"
+          "S3Key": "serverless/email/staging/1615093972996-2021-03-07T05:12:52.996Z/email.zip"
         },
         "Handler": "src/email/handler.email_handler_fallback",
         "Runtime": "python3.8",
@@ -326,14 +326,14 @@
         "FallbackDashhandlerDashpyLogGroup"
       ]
     },
-    "FallbackDashhandlerDashpyLambdaVersionrdCLhcwe6pvJmdrvlRaFa4gyLiu3M93rZzeBxltZ4": {
+    "FallbackDashhandlerDashpyLambdaVersionxg4GIASpqVRGcvTp53JyKbiuer56BF5KabhzOSuzQQ": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
       "Properties": {
         "FunctionName": {
           "Ref": "FallbackDashhandlerDashpyLambdaFunction"
         },
-        "CodeSha256": "R2P1mvuIlKMrfblIX2696vNSAfbefvZs0Xom3KeKspI="
+        "CodeSha256": "tvPG1iDbJzO/dxIxTT3Mhk5m5uq1g31mLsAkwZ6Wg/E="
       }
     },
     "MainDashhandlerDashpyEventSourceMappingSQSEmailQueueDemo": {
@@ -430,13 +430,13 @@
     "MainDashhandlerDashpyLambdaFunctionQualifiedArn": {
       "Description": "Current Lambda function version",
       "Value": {
-        "Ref": "MainDashhandlerDashpyLambdaVersion5fWVYfhoxWtAKhD6ncV2VozFLe5ptiJAsaLdksjnBc"
+        "Ref": "MainDashhandlerDashpyLambdaVersionKIRj4PkilILtqVUu2nLB3n1CHKHi17WpfAhTwWcOLQ"
       }
     },
     "FallbackDashhandlerDashpyLambdaFunctionQualifiedArn": {
       "Description": "Current Lambda function version",
       "Value": {
-        "Ref": "FallbackDashhandlerDashpyLambdaVersionrdCLhcwe6pvJmdrvlRaFa4gyLiu3M93rZzeBxltZ4"
+        "Ref": "FallbackDashhandlerDashpyLambdaVersionxg4GIASpqVRGcvTp53JyKbiuer56BF5KabhzOSuzQQ"
       }
     }
   }

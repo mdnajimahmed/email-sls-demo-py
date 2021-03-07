@@ -20,26 +20,17 @@ def download_from_s3(object_key):
 
 def notify_sre_team(email_context, attributes):
     print("notifying sre team, email_context = ", email_context, "attributes", attributes)
-    approximate_receive_count = int(attributes['ApproximateReceiveCount'])
-    print("approximate_receive_count", approximate_receive_count)
     sns = boto3.client('sns')
     topic_arn = os.getenv("SRE_ALERT_TOPIC_ARN")
     print("topic_arn", topic_arn)
 
-    if approximate_receive_count > 1:
-        response = sns.publish(
-            TopicArn=topic_arn,
-            Message=f"warn - ses doing retry!!! pls check log and investigate further\nhint:{json.dumps(attributes)}"
-                    f"details={json.dumps(email_context)}",
-        )
-        print("sns response", response)
-    else:
-        response = sns.publish(
-            TopicArn=topic_arn,
-            Message=f"warn - main email handler failed!!! using sns for fallback! pls take action\nhint:{json.dumps(attributes)}\n"
-                    f"details={json.dumps(email_context)}",
-        )
-        print("sns response", response)
+    response = sns.publish(
+        TopicArn=topic_arn,
+        Message=f"warn - main email handler failed!!! using sns for fallback! pls take action\nhint:{json.dumps(attributes)}\n"
+                f"details={json.dumps(email_context)}",
+    )
+    print("sns response", response)
+
 
 
 def send_email_with_ses(email_context, attributes):
