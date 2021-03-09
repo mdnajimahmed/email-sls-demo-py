@@ -151,14 +151,14 @@
             "Type": "AWS::Logs::LogGroup",
             "Properties": {
               "LogGroupName": "/aws/lambda/email-main-handler-py",
-              "RetentionInDays": 30
+              "RetentionInDays": 60
             }
           },
           "FallbackDashhandlerDashpyLogGroup": {
             "Type": "AWS::Logs::LogGroup",
             "Properties": {
               "LogGroupName": "/aws/lambda/email-fallback-handler-py",
-              "RetentionInDays": 30
+              "RetentionInDays": 60
             }
           },
           "IamRoleLambdaExecution": {
@@ -298,7 +298,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/email/staging/1615093972996-2021-03-07T05:12:52.996Z/email.zip"
+                "S3Key": "serverless/email/staging/1615262560406-2021-03-09T04:02:40.406Z/email.zip"
               },
               "Handler": "src/email/handler.email_handler",
               "Runtime": "python3.8",
@@ -316,14 +316,14 @@
               "MainDashhandlerDashpyLogGroup"
             ]
           },
-          "MainDashhandlerDashpyLambdaVersionKIRj4PkilILtqVUu2nLB3n1CHKHi17WpfAhTwWcOLQ": {
+          "MainDashhandlerDashpyLambdaVersionA8t8opylEZiAovaS46LgmZxNcjr3HJDFZYL3t8LYXI": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "MainDashhandlerDashpyLambdaFunction"
               },
-              "CodeSha256": "tvPG1iDbJzO/dxIxTT3Mhk5m5uq1g31mLsAkwZ6Wg/E="
+              "CodeSha256": "HwvXJa4uA628xtPoKd2AXzy3ZuoV5RHpDzCzAnmTaA8="
             }
           },
           "FallbackDashhandlerDashpyLambdaFunction": {
@@ -333,7 +333,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/email/staging/1615093972996-2021-03-07T05:12:52.996Z/email.zip"
+                "S3Key": "serverless/email/staging/1615262560406-2021-03-09T04:02:40.406Z/email.zip"
               },
               "Handler": "src/email/handler.email_handler_fallback",
               "Runtime": "python3.8",
@@ -356,14 +356,14 @@
               "FallbackDashhandlerDashpyLogGroup"
             ]
           },
-          "FallbackDashhandlerDashpyLambdaVersionxg4GIASpqVRGcvTp53JyKbiuer56BF5KabhzOSuzQQ": {
+          "FallbackDashhandlerDashpyLambdaVersionprgpT8jC1rcS6Oab9tgalQ6bqf5Bspu139dmidI": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "FallbackDashhandlerDashpyLambdaFunction"
               },
-              "CodeSha256": "tvPG1iDbJzO/dxIxTT3Mhk5m5uq1g31mLsAkwZ6Wg/E="
+              "CodeSha256": "HwvXJa4uA628xtPoKd2AXzy3ZuoV5RHpDzCzAnmTaA8="
             }
           },
           "MainDashhandlerDashpyEventSourceMappingSQSEmailQueueDemo": {
@@ -460,13 +460,13 @@
           "MainDashhandlerDashpyLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "MainDashhandlerDashpyLambdaVersionKIRj4PkilILtqVUu2nLB3n1CHKHi17WpfAhTwWcOLQ"
+              "Ref": "MainDashhandlerDashpyLambdaVersionA8t8opylEZiAovaS46LgmZxNcjr3HJDFZYL3t8LYXI"
             }
           },
           "FallbackDashhandlerDashpyLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "FallbackDashhandlerDashpyLambdaVersionxg4GIASpqVRGcvTp53JyKbiuer56BF5KabhzOSuzQQ"
+              "Ref": "FallbackDashhandlerDashpyLambdaVersionprgpT8jC1rcS6Oab9tgalQ6bqf5Bspu139dmidI"
             }
           }
         }
@@ -562,7 +562,7 @@
       "pythonRequirements": {
         "dockerizePip": true
       },
-      "logRetentionInDays": 30
+      "logRetentionInDays": 60
     },
     "plugins": [
       "serverless-python-requirements",
@@ -589,7 +589,7 @@
         "memory": 1024,
         "runtime": "python3.8",
         "vpc": {},
-        "versionLogicalId": "MainDashhandlerDashpyLambdaVersionKIRj4PkilILtqVUu2nLB3n1CHKHi17WpfAhTwWcOLQ"
+        "versionLogicalId": "MainDashhandlerDashpyLambdaVersionA8t8opylEZiAovaS46LgmZxNcjr3HJDFZYL3t8LYXI"
       },
       "fallback-handler-py": {
         "handler": "src/email/handler.email_handler_fallback",
@@ -612,7 +612,7 @@
         "memory": 1024,
         "runtime": "python3.8",
         "vpc": {},
-        "versionLogicalId": "FallbackDashhandlerDashpyLambdaVersionxg4GIASpqVRGcvTp53JyKbiuer56BF5KabhzOSuzQQ"
+        "versionLogicalId": "FallbackDashhandlerDashpyLambdaVersionprgpT8jC1rcS6Oab9tgalQ6bqf5Bspu139dmidI"
       }
     },
     "resources": {
@@ -660,13 +660,13 @@
         "MainDashhandlerDashpyLogGroup": {
           "Type": "AWS::Logs::LogGroup",
           "Properties": {
-            "RetentionInDays": 30
+            "RetentionInDays": 60
           }
         },
         "FallbackDashhandlerDashpyLogGroup": {
           "Type": "AWS::Logs::LogGroup",
           "Properties": {
-            "RetentionInDays": 30
+            "RetentionInDays": 60
           }
         }
       },
@@ -700,7 +700,7 @@
     "artifact": "C:\\personal\\email-sls-demo-py\\.serverless\\email.zip"
   },
   "package": {
-    "artifactDirectoryName": "serverless/email/staging/1615093972996-2021-03-07T05:12:52.996Z",
+    "artifactDirectoryName": "serverless/email/staging/1615262560406-2021-03-09T04:02:40.406Z",
     "artifact": "email.zip"
   }
 }

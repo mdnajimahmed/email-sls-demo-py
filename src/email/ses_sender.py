@@ -7,6 +7,8 @@ from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from email.mime.application import MIMEApplication
 
+from src.email.sns_helper import send_sns_message
+
 
 def download_from_s3(object_key):
     print(f"downloading {object_key} from S3")
@@ -18,19 +20,14 @@ def download_from_s3(object_key):
     return byte_value
 
 
+# Fail safe
 def notify_sre_team(email_context, attributes):
     print("notifying sre team, email_context = ", email_context, "attributes", attributes)
-    sns = boto3.client('sns')
     topic_arn = os.getenv("SRE_ALERT_TOPIC_ARN")
-    print("topic_arn", topic_arn)
-
-    response = sns.publish(
-        TopicArn=topic_arn,
-        Message=f"warn - main email handler failed!!! using sns for fallback! pls take action\nhint:{json.dumps(attributes)}\n"
-                f"details={json.dumps(email_context)}",
-    )
-    print("sns response", response)
-
+    message = f"warn - main email handler failed!!! using sns for fallback! pls take action\n" \
+              f"hint:{json.dumps(attributes)}\n" \
+              f"details={json.dumps(email_context)}"
+    send_sns_message(topic_arn, message)
 
 
 def send_email_with_ses(email_context, attributes):
